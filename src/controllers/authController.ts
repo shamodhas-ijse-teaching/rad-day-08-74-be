@@ -84,8 +84,18 @@ export const login = async (req: Request, res: Response) => {
 }
 
 export const getMyDetails = async (req: AuthRequest, res: Response) => {
-  // req.user -> sub - id, email, roles
-   
+  if (!req.user) {
+    return res.status(401).json({ message: "Unauthorized" })
+  }
+  const user = await UserModel.findById(req.user.sub).select("-password")
 
-  res.send("hello")
+  if (!user) {
+    return res.status(404).json({
+      message: "User not found"
+    })
+  }
+
+  const { email, roles, _id } = user
+
+  res.status(200).json({ message: "ok", data: { id: _id, email, roles } })
 }
