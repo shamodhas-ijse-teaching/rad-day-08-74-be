@@ -1,8 +1,9 @@
 import express from "express"
 import mongoose from "mongoose"
-import CustomerRouter from "./routers/customerRouter"
-import AuthRouter from "./routers/authRouter"
 import cors from "cors"
+import AuthRouter from "./routers/authRouter"
+import CustomerRouter from "./routers/customerRouter"
+import BlogRouter from "./routers/blogRouter"
 
 import dotenv from "dotenv"
 dotenv.config()
@@ -28,6 +29,7 @@ app.use(express.json())
 
 app.use("/api/v1/customer", CustomerRouter)
 app.use("/api/v1/auth", AuthRouter)
+app.use("/api/v1/blog", BlogRouter)
 
 // for response
 // app.use((req, res, next) => {})
